@@ -19,6 +19,14 @@ func New(w io.Writer) Tracer {
 }
 
 func (t *tracer) Trace(a ...interface{}) {
-	t.out.Write([]byte(fmt.Sprint(a...)))
-	t.out.Write([]byte("\n"))
+	_, _ = t.out.Write([]byte(fmt.Sprint(a...)))
+	_, _ = t.out.Write([]byte("\n"))
 }
+
+type nilTracer struct{}
+
+func Off() Tracer {
+	return &nilTracer{}
+}
+
+func (_ *nilTracer) Trace(a ...interface{}) {}
