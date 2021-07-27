@@ -5,11 +5,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"os"
 	"path/filepath"
 	"sync"
-
-	"github.com/matt-hoiland/blueprints/trace"
 )
 
 var (
@@ -33,7 +30,7 @@ func main() {
 	flag.Parse()
 
 	r := newRoom()
-	r.tracer = trace.New(os.Stdout)
+	// r.tracer = trace.New(os.Stdout)
 	http.Handle("/", &templateHandler{filename: "chat.html"})
 	http.Handle("/room", r)
 	// Get the room going
