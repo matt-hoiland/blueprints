@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/matt-hoiland/blueprints/trace"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNew(t *testing.T) {
@@ -18,4 +19,12 @@ func TestNew(t *testing.T) {
 	if buf.String() != "Hello trace package.\n" {
 		t.Errorf("Trace should not write '%s'.", buf.String())
 	}
+}
+
+func TestOff(t *testing.T) {
+	silentTracer := trace.Off()
+	if !assert.NotNil(t, silentTracer) {
+		t.FailNow()
+	}
+	silentTracer.Trace("something")
 }
