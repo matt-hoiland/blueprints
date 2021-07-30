@@ -11,6 +11,11 @@ import (
 // format: /auth/{action}/{provider}
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	segs := strings.Split(r.URL.Path, "/")
+	if len(segs) < 4 {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Fprintf(w, "Expected path patter: /auth/{action}/{provider}")
+		return
+	}
 	action := segs[2]
 	provider := segs[3]
 	switch action {
