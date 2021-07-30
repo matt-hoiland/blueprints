@@ -12,6 +12,8 @@ import (
 
 	"github.com/matt-hoiland/blueprints/internal/auth"
 	"github.com/matt-hoiland/blueprints/trace"
+	"github.com/stretchr/gomniauth"
+	"github.com/stretchr/gomniauth/providers/google"
 )
 
 var (
@@ -42,6 +44,16 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	flag.Parse()
+	secrets, err := auth.LoadSecrets()
+	if err != nil {
+		panic(err)
+	}
+
+	gomniauth.SetSecurityKey("TODO replace with secure passphrase or hash")
+	gomniauth.WithProviders(
+		google.New(secrets["google"].ClientID, secrets["google"].ClientSecret, secrets["google"].RedirectURI),
+	)
+
 	addr := fmt.Sprintf("%s:%s", *host, *port)
 	wd, _ := os.Getwd()
 	log.Println("Working Directory", wd)
