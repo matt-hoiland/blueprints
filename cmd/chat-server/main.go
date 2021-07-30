@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/matt-hoiland/blueprints/internal/auth"
 	"github.com/matt-hoiland/blueprints/trace"
 )
 
@@ -49,9 +50,9 @@ func main() {
 	if *verbose {
 		r.tracer = trace.New(os.Stdout)
 	}
-	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
+	http.Handle("/chat", auth.MustAuth(&templateHandler{filename: "chat.html"}))
 	http.Handle("/login", &templateHandler{filename: "login.html"})
-	http.HandleFunc("/auth/", LoginHandler)
+	http.HandleFunc("/auth/", auth.LoginHandler)
 	http.Handle("/room", r)
 	// Get the room going
 	go r.run()
