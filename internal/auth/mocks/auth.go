@@ -74,6 +74,21 @@ func (m *MockProvider) EXPECT() *MockProviderMockRecorder {
 	return m.recorder
 }
 
+// CompleteAuth mocks base method.
+func (m *MockProvider) CompleteAuth(data objx.Map) (*common.Credentials, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CompleteAuth", data)
+	ret0, _ := ret[0].(*common.Credentials)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CompleteAuth indicates an expected call of CompleteAuth.
+func (mr *MockProviderMockRecorder) CompleteAuth(data interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CompleteAuth", reflect.TypeOf((*MockProvider)(nil).CompleteAuth), data)
+}
+
 // GetBeginAuthURL mocks base method.
 func (m *MockProvider) GetBeginAuthURL(arg0 *common.State, arg1 objx.Map) (string, error) {
 	m.ctrl.T.Helper()
@@ -87,4 +102,19 @@ func (m *MockProvider) GetBeginAuthURL(arg0 *common.State, arg1 objx.Map) (strin
 func (mr *MockProviderMockRecorder) GetBeginAuthURL(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBeginAuthURL", reflect.TypeOf((*MockProvider)(nil).GetBeginAuthURL), arg0, arg1)
+}
+
+// GetUser mocks base method.
+func (m *MockProvider) GetUser(arg0 *common.Credentials) (common.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUser", arg0)
+	ret0, _ := ret[0].(common.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUser indicates an expected call of GetUser.
+func (mr *MockProviderMockRecorder) GetUser(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockProvider)(nil).GetUser), arg0)
 }
