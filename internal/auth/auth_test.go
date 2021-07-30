@@ -40,10 +40,12 @@ func TestLoginHandler(t *testing.T) {
 	for i := range tests {
 		test := tests[i]
 		t.Run(test.Name, func(t *testing.T) {
+
 			req := httptest.NewRequest("GET", test.Path, nil)
 			w := httptest.NewRecorder()
 
-			auth.LoginHandler(w, req)
+			handler := auth.NewLoginHandler(&auth.GomniAuthAdapter{})
+			handler.ServeHTTP(w, req)
 			resp := w.Result()
 
 			if !assert.NotNil(t, resp) {

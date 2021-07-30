@@ -52,7 +52,7 @@ func main() {
 	}
 	http.Handle("/chat", auth.MustAuth(&templateHandler{filename: "chat.html"}))
 	http.Handle("/login", &templateHandler{filename: "login.html"})
-	http.HandleFunc("/auth/", auth.LoginHandler)
+	http.Handle("/auth/", auth.NewLoginHandler(&auth.GomniAuthAdapter{}))
 	http.Handle("/room", r)
 	// Get the room going
 	go r.run()
