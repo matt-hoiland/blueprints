@@ -17,3 +17,6 @@
 # go build output, but not cmd directory
 chat-server
 !chat-server/
+
+# OAuth Secrets
+secrets.json
