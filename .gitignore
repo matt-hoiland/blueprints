@@ -14,5 +14,9 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-# Binaries
+# go build output, but not cmd directory
 chat-server
+!chat-server/
+
+# OAuth Secrets
+secrets.json
